@@ -9,6 +9,8 @@ Config config;
 int movCounter = 0;
 // pir block
 bool pirBlock = false;
+// screen bool so it does not refresh every tick
+bool screen = true;
 
 void setup(){
 	// sharmem setup
@@ -55,6 +57,8 @@ void setup(){
 }
 
 void loop(){
+	// create headers
+	createHeaders();
 	// read PIR sensor
 	val = digitalRead(PIR);
 	if (val == HIGH){
@@ -74,12 +78,17 @@ void loop(){
 			pirBlock = true;
 			// wait for sensor to reload
 			delay(5000);
+			// set screen to refresh again
+			screen = true;
 			}
 	}
 	else{
 		pirBlock = false;
-		display.clearDisplay();
-		displayChar("Detecting...");
+		if (screen){
+			display.clearDisplay();
+			displayChar("Detecting...");
+			screen = false;
+		}
 		delay(100);
 		}
 }

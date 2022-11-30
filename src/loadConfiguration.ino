@@ -10,9 +10,9 @@ void loadConfiguration(const char *filename, Config &config){
 	// Deserialize the JSON document
 	// Desrialize: go from file into objects
 	DeserializationError error = deserializeJson(doc, file);
-	if (error){
-		Serial.println(F("Fail, using default config"));
-		}
+	if (error)
+	  Serial.println(F("Fail, using default config"));
+		
 
 	// Copy values from the JsonDocument to the config
 	config.ID = doc["ID"] | 000;
